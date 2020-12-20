@@ -1,0 +1,89 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/roles" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="role.IdMa_Roles != 0" class="float-right">Editando al rol   <b>{{role.Slug_Roles }}</b></h4>
+                <h4 *ngIf="role.IdMa_Roles == 0" class="float-right">Creando al rol </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateRole() : createRole()">
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Name_Roles').valid}">
+                        <label class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Name_Roles" id="Name_Roles" [(ngModel)]="role.Name_Roles" class="form-control texto" autofocus >
+                            <div *ngIf="forma.get('Name_Roles').invalid && (forma.get('Name_Roles').dirty || forma.get('Name_Roles').touched)">
+                                <span *ngIf="forma.get('Name_Roles').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Slug_Roles').valid}">
+                        <label class="col-sm-2 control-label">Indicador</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Slug_Roles" id="Slug_Roles" [(ngModel)]="role.Slug_Roles" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Slug_Roles').invalid && (forma.get('Slug_Roles').dirty || forma.get('Slug_Roles').touched)">
+                                <span *ngIf="forma.get('Slug_Roles').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Tipo de Permiso</label>
+                        <div class="col-sm-10">
+                            <select formControlName="Special_Roles" [(ngModel)]="role.Special_Roles" (change)="validatePermissions()" class="form-control">
+                                <option value="all-access">Todos los Permisos</option>
+                                <option value="no-access">Ningun Permiso</option>
+                                <option value="allowed">Otorgar Permisos</option>
+                                <option value="more">Más Opciones</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div  *ngIf="isAllowed">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('permissionsRole').valid}">
+                            <label class="col-sm-2 control-label">Permisos</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox" *ngFor="let function of functions">
+                                    <label>
+                                      <input formControlName="functionsRole" type="checkbox" value="{{function.IdMa_Function}}" (change)="onFunctionsChange(function,$event)" [checked]="function.Checked_Function">{{function.Name_Function}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  *ngIf="more">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('permissionsRole').valid}">
+                            <label class="col-sm-2 control-label">Permisos</label>
+                            <div class="col-sm-10">
+                                <div class="checkbox" *ngFor="let permission of permissions">
+                                    <label>
+                                      <input formControlName="permissionsRole" type="checkbox" value="{{permission.IdMa_Permissions}}" (change)="onCheckboxChange(permission,$event)" [checked]="permission.Checked_Permissions">{{permission.Name_Permissions}}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/roles" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Roles</h5>
+        <div class="ibox-tools">
+            <a routerLink="/role/nuevo" class="btn btn-primary btn-xs" *ngIf="canCreates"><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Rol</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Indicador </th>
+                    <th scope="col">Fecha de Creación</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let role of roles | paginate: { itemsPerPage: 10, currentPage: page }; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ role.Name_Roles }}</td>
+                    <td>{{ role.Slug_Roles }}</td>
+                    <td>{{ role.Creation_Roles | date:'dd-MM-yyyy' }}</td>
+                    <td>
+                      <!--[routerLink]="['/role',role.IdMa_Roles]"-->
+                      <a [routerLink]="['/role',role.IdMa_Roles]" class="btn btn-info" *ngIf="canEdits" disabled>
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteRole(role)" *ngIf="canDelete" disabled>
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="page = $event" class="pagination"></pagination-controls>
+        </div> 
+    </div>
+</div>

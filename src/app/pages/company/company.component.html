@@ -1,0 +1,84 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/companies" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="company.IdMa_Company != 0" class="float-right">Editando a la empresa  <b>{{company.Ruc_Company }}</b></h4>
+                <h4 *ngIf="company.IdMa_Company == 0" class="float-right">Creando a la empresa </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateCompany() : createCompany()">
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Ruc_Company').valid}">
+                        <label class="col-sm-2 control-label">RUC</label>
+                        <div class="col-sm-10">
+                            <input type="text" minlength="11"   formControlName="Ruc_Company" id="rucCompany" [(ngModel)]="company.Ruc_Company" class="form-control numero" autofocus >
+                            <div *ngIf="forma.get('Ruc_Company').invalid && (forma.get('Ruc_Company').dirty || forma.get('Ruc_Company').touched)">
+                                <span *ngIf="forma.get('Ruc_Company').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Ruc_Company').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo números
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Business_Name_Company').valid}">
+                        <label class="col-sm-2 control-label">Razón Social</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Business_Name_Company" id="businessName" [(ngModel)]="company.Business_Name_Company" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Business_Name_Company').invalid && (forma.get('Business_Name_Company').dirty || forma.get('Business_Name_Company').touched)">
+                                <span *ngIf="forma.get('Business_Name_Company').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Business_Name_Company').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Comercial_Name_Company').valid}">
+                        <label class="col-sm-2 control-label">Nombre Comercial</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Comercial_Name_Company" id="comercialName" [(ngModel)]="company.Comercial_Name_Company" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Comercial_Name_Company').invalid && (forma.get('Comercial_Name_Company').dirty || forma.get('Comercial_Name_Company').touched)">
+                                <span *ngIf="forma.get('Comercial_Name_Company').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Comercial_Name_Company').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Tax_Residence_Company').valid}">
+                        <label class="col-sm-2 control-label">Ubicación</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Tax_Residence_Company" id="taxResidence" [(ngModel)]="company.Tax_Residence_Company" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Tax_Residence_Company').invalid && (forma.get('Tax_Residence_Company').dirty || forma.get('Tax_Residence_Company').touched)">
+                                <span *ngIf="forma.get('Tax_Residence_Company').errors.required" style="color: red;">
+                                    El Correo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/companies" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

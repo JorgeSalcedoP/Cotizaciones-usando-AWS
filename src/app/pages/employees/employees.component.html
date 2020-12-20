@@ -1,0 +1,44 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Empleados</h5>
+        <div class="ibox-tools">
+            <a routerLink="/employee/nuevo" class="btn btn-primary btn-xs" *ngIf="canCreates" ><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Empleado</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Celular</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let employee of employees | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ employee.Name_Employee }}</td>
+                    <td>{{ employee.Lastname_Employee }}</td>
+                    <td>{{ employee.Email_Employee  }}</td>
+                    <td>{{ employee.Mobile_Employee }}</td>
+                    <td>
+                      <a [routerLink]="['/employee',employee.IdMa_Employee]" class="btn btn-info" *ngIf="canEdits" >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteEmployee(employee)" *ngIf="canDelete">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> 
+    </div>
+</div>

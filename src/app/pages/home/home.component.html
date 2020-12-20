@@ -1,0 +1,211 @@
+
+<div *ngIf="canQuotesShow" >
+
+  <div class="row">
+    <div class="panel">
+      <div class="panel-heading" >
+        <strong>Cotizaciones</strong>
+      </div>
+    </div>
+  </div>
+    
+    <div class="row">
+      <div class="col-md-3">
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalQuotationAprobada }}</h3>
+    
+                  <p>Aprobada</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/quotations','Aprobada']" class="btn btn-success btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-3">
+          <div class="panel panel-info">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalQuotationAbierto }}</h3>
+    
+                  <p>Abierta</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/quotations','Abierto']" class="btn btn-info btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-3">
+          <div class="panel panel-warning">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalQuotationPendiente }}</h3>
+    
+                  <p>Pendiente</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/quotations','Pendiente']" class="btn btn-warning btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-3">
+          <div class="panel panel-danger">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalQuotationAnulada }}</h3>
+    
+                  <p>Anulada</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/quotations','Anulada']" class="btn btn-danger btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+
+</div>
+
+<div *ngIf="canOrdersShow">
+
+  <div class="row">
+    <div class="panel">
+      <div class="panel-heading">
+        <strong>Ordenes de Compra</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+              <div class="inner">
+                <h3>{{ totalOrderProceso }}</h3>
+  
+                <p>Proceso</p>
+                </div>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-9">
+                Mas Información
+              </div>
+              <div class="col-md-3">
+                <a [routerLink]="['/osces','Proceso']" class="btn btn-warning btn-xs" >
+                  <i class="fas fa-eye"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+              <div class="inner">
+                <h3>{{ totalOrderFinalizado }}</h3> 
+  
+                <p>Finalizado</p>
+                </div>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-9">
+                Mas Información
+              </div>
+              <div class="col-md-3">
+                <a [routerLink]="['/osces','Finalizado']" class="btn btn-success btn-xs" >
+                  <i class="fas fa-eye"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+
+</div>
+
+  <div *ngIf="canBillsShow">
+    <div class="row">
+      <div class="panel">
+        <div class="panel-heading">
+          <strong>Facturas</strong>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-md-3">
+          <div class="panel panel-warning">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalBillPendiente }}</h3>
+    
+                  <p>Pendiente</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/bills','Pendiente']" class="btn btn-warning btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="col-md-3">
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="inner">
+                  <h3>{{ totalBillCerrado }}</h3> 
+    
+                  <p>Cerrado</p>
+                  </div>
+              </div>
+              <div class="panel-body">
+                <div class="col-md-9">
+                  Mas Información
+                </div>
+                <div class="col-md-3">
+                  <a [routerLink]="['/bills','Cerrado']" class="btn btn-success btn-xs" >
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+      </div>
+    </div>
+  </div>

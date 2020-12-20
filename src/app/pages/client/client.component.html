@@ -1,0 +1,123 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/clients" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="client.IdMa_Client != 0" class="float-right">Editando a el cliente   <b>{{client.Name_Client }}</b></h4>
+                <h4 *ngIf="client.IdMa_Client == 0" class="float-right">Creando cliente </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateClient() : createClient()">
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Name_Client').valid}">
+                        <label class="col-sm-2 control-label">Nombre del Cliente</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Name_Client" id="Name_Client" [(ngModel)]="client.Name_Client" class="form-control texto" autofocus >
+                            <div *ngIf="forma.get('Name_Client').invalid && (forma.get('Name_Client').dirty || forma.get('Name_Client').touched)">
+                                <span *ngIf="forma.get('Name_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Name_Client').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Lastname_Client').valid}">
+                        <label class="col-sm-2 control-label">Apellido del Cliente</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Lastname_Client" id="Lastname_Client" [(ngModel)]="client.Lastname_Client" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Lastname_Client').invalid && (forma.get('Lastname_Client').dirty || forma.get('Lastname_Client').touched)">
+                                <span *ngIf="forma.get('Lastname_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Lastname_Client').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Area_Client').valid}">
+                        <label class="col-sm-2 control-label">Área de Trabajo</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Area_Client" id="Area_Client" [(ngModel)]="client.Area_Client" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Area_Client').invalid && (forma.get('Area_Client').dirty || forma.get('Area_Client').touched)">
+                                <span *ngIf="forma.get('Area_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Phone_Client').valid}">
+                        <label class="col-sm-2 control-label">Teléfono</label>
+                        <div class="col-sm-10">
+                            <input type="text" minlength="7" maxlength="7" formControlName="Phone_Client" id="Phone_Client" [(ngModel)]="client.Phone_Client" class="form-control numero" autofocus>
+                            <div *ngIf="forma.get('Phone_Client').invalid && (forma.get('Phone_Client').dirty || forma.get('Phone_Client').touched)">
+                                <span *ngIf="forma.get('Phone_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Phone_Client').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo números
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Mobile_Client').valid}">
+                        <label class="col-sm-2 control-label">Celular</label>
+                        <div class="col-sm-10">
+                            <input type="text" minlength="9" maxlength="9" formControlName="Mobile_Client" id="Mobile_Client" [(ngModel)]="client.Mobile_Client" class="form-control numero" autofocus>
+                            <div *ngIf="forma.get('Mobile_Client').invalid && (forma.get('Mobile_Client').dirty || forma.get('Mobile_Client').touched)">
+                                <span *ngIf="forma.get('Mobile_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Mobile_Client').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo números
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Email_Client').valid}">
+                        <label class="col-sm-2 control-label">Correo</label>
+                        <div class="col-sm-10">
+                            <input type="email" formControlName="Email_Client" id="Email_Client" [(ngModel)]="client.Email_Client" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Email_Client').invalid && (forma.get('Email_Client').dirty || forma.get('Email_Client').touched)">
+                                <span *ngIf="forma.get('Email_Client').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Email_Client').errors.pattern" style="color: red;">
+                                   Este campo debe ser tener un formato de correo
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Empresa de Colaboración</label>
+                        <div class="col-sm-10">
+                            <select formControlName="Company_Id" [(ngModel)]="client.Company_Id"  class="form-control">
+                                <option [value]="company.IdMa_Company" *ngFor="let company of companies">{{company.Business_Name_Company}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/clients" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

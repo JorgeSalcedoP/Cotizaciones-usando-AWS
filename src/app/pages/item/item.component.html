@@ -1,0 +1,96 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/items" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="item.IdMa_Item != 0" class="float-right">Editando al item  <b>{{item.Description_Item }}</b></h4>
+                <h4 *ngIf="item.IdMa_Item == 0" class="float-right">Creando al item </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateItem() : createItem()">
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Description_Item').valid}">
+                        <label class="col-sm-2 control-label">Descripción</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" formControlName="Description_Item" id="descriptionItem" [(ngModel)]="item.Description_Item" class="form-control texto" autofocus ></textarea>
+                            <div *ngIf="forma.get('Description_Item').invalid && (forma.get('Description_Item').dirty || forma.get('Description_Item').touched)">
+                                <span *ngIf="forma.get('Description_Item').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>                       
+                        </div>
+                        </div>
+                  <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Brand_Item').valid}">
+                        <label class="col-sm-2 control-label">Marca</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Brand_Item" id="brandItem" [(ngModel)]="item.Brand_Item" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Brand_Item').invalid && (forma.get('Brand_Item').dirty || forma.get('Brand_Item').touched)">
+                                <span *ngIf="forma.get('Brand_Item').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Partnumber_Item').valid}">
+                        <label class="col-sm-2 control-label">Partnumber</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Partnumber_Item" id="Partnumber_Item" [(ngModel)]="item.Partnumber_Item"class="form-control" autofocus>
+                            <div *ngIf="forma.get('Partnumber_Item').invalid && (forma.get('Partnumber_Item').dirty || forma.get('Partnumber_Item').touched)">
+                                <span *ngIf="forma.get('Partnumber_Item').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Unit_Item').valid}">
+                        <label class="col-sm-2 control-label">Unidad</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Unit_Item" id="unitItem" [(ngModel)]="item.Unit_Item"class="form-control" autofocus>
+                            <div *ngIf="forma.get('Unit_Item').invalid && (forma.get('Unit_Item').dirty || forma.get('Unit_Item').touched)">
+                                <span *ngIf="forma.get('Unit_Item').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+					</div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('PUnitary_Item').valid}">
+                        <label class="col-sm-2 control-label">PUnitary</label>
+                        <div class="col-sm-10">
+                            <input type="number" formControlName="PUnitary_Item" id="PUnitary_Item" [(ngModel)]="item.PUnitary_Item"class="form-control " autofocus>
+                            <div *ngIf="forma.get('PUnitary_Item').invalid && (forma.get('PUnitary_Item').dirty || forma.get('PUnitary_Item').touched)">
+                                <span *ngIf="forma.get('PUnitary_Item').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Servicio Relacionado</label>
+                        <div class="col-sm-10">
+                            <select formControlName="Service_Id" [(ngModel)]="item.Service_Id"  class="form-control">
+                                <option [value]="service.IdMa_Service" *ngFor="let service of services">{{service.Description_Service}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/items" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>                                                                                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

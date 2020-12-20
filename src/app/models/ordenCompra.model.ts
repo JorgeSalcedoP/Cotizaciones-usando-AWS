@@ -1,0 +1,19 @@
+export interface OrdenCompraModel{
+    IdMa_Osce?:Number;
+    Serie_Osce:string;
+    Quotation_Serie:string;
+    Moneda_Osce:string;
+    PSubtotal_Osce:Number;
+    Total_Osce:Number;
+    SRestante_Osce:Number;
+    Commentary_Osce?:string;
+    Service_Description:string;
+    Status_Osce:string;
+    Document_Osce:string;
+    Files_Osce:string;
+    Creation_Osce?:Date;
+    Update_Osce?:Date;
+    Document:Number;
+    Files:Number;
+    Company_Id:Number;
+}

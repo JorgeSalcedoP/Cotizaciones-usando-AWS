@@ -1,0 +1,95 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Reporte General</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <form class="form-horizontal" [formGroup]="forma" novalidate="">
+                <div class="col-md-3">
+                    <label for="">Desde:</label>
+                    <input type="date" formControlName="sinceDate" id="sinceDate" [(ngModel)]="reporte.since_date" class="form-control" (change)="sinceChange()" autofocus >
+                </div>
+                <div class="col-md-3">
+                    <label for="">Hasta:</label>
+                    <input type="date" formControlName="toDate" id="toDate" [(ngModel)]="reporte.to_date" class="form-control" (change)="toChange()" autofocus>
+                </div>
+                <div class="col-md-3">
+                    <label for="">Empresa</label>
+                    <select formControlName="company"  class="form-control" [(ngModel)]="reporte.company_name" (change)="companyChange()">
+                        <option value="">Seleccione la Empresa</option>
+                        <option [value]="company.Business_Name_Company" *ngFor="let company of companies">{{company.Business_Name_Company}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for=""></label>
+                            <button class="btn btn-block btn-warning" (click)="cleanFilter()">
+                                <i class="fas fa-broom"></i>  
+                            </button>
+                        </div>
+                        <div class="col-md-6" *ngIf="canCreates">
+                            <label for=""></label>
+                            <button class="btn btn-block btn-primary" (click)="generateExcel()">
+                                <i class="fas fa-file-excel"></i>  Exportar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </form> 
+        </div>
+        <div class="hr-line-dashed"></div>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>N° Cotización</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>Empresa</th>
+                        <th>Importe</th>
+                        <th>PDF</th>
+                        <th>N° OC</th>
+                        <th>Importe</th>
+                        <th>PDF</th>
+                        <th>N° Factura</th>
+                        <th>Importe</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let quotation of quotations | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ quotation.N_COTIZACION }}</td>
+                        <td>{{ quotation.FECHA | date :'dd/MM/yyyy'}}</td>
+                        <td>{{ quotation.CLIENTE }}</td>
+                        <td>{{ quotation.EMPRESA }}</td>
+                        <td>{{ quotation.IMPORTE }}</td>
+                        <td>
+                            <a href="{{ quotation.URL_COTIZACION }}" class="btn btn-default btn-sm" target="_blank" *ngIf="quotation.URL_COTIZACION ">
+                                <i class="fas fa-file-pdf"></i>
+                             </a>
+                        </td>
+                        <td>{{ quotation.N_OC }}</td>
+                        <td>{{ quotation.IMPORTE_NETO }}</td>
+                        <td>
+                            <a href="{{ quotation.URL_OC }}" class="btn btn-default btn-sm" target="_blank" *ngIf="quotation.URL_OC">
+                                <i class="fas fa-file-pdf"></i>
+                             </a>
+                        </td>
+                        <td>{{ quotation.N_FACTURA }}</td>
+                        <td>{{ quotation.IMPORTE_FACTURA }}</td>
+                        <td>
+                            <a href="{{ quotation.URL_FACTURA }}" class="btn btn-default btn-sm" target="_blank" *ngIf="quotation.URL_FACTURA">
+                                <i class="fas fa-file-pdf"></i>
+                             </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>

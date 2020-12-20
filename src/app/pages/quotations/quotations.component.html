@@ -1,0 +1,63 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Cotizaciones </h5>
+        <div class="ibox-tools">
+            <a routerLink="/quotation" class="btn btn-primary btn-xs" *ngIf="canCreates" ><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Cotización</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Serie</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Fecha </th>
+                    <th scope="col">Validez</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">PDF</th>
+                    <th colspan="1"></th>
+                    <th *ngIf="canCreateOrder"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let quotation of quotations | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ quotation.Serie_Quotation }}</td>
+                    <td>{{ quotation.Business_Name_Company }}</td>
+                    <td>{{ quotation.Name_Client }} {{ quotation.Lastname_Client }}</td>
+                    <td>{{ quotation.Date_Quotation | date }}</td>
+                    <td>{{ quotation.Validez_Quotation  }}</td>
+                    <td>{{ quotation.Status_Quotation }}</td>
+                    <td>{{ quotation.Total_Quotation }}</td>
+                    <td>
+                        <a href="{{ quotation.Document_Quotation }}" class="btn btn-default" target="_blank" *ngIf="quotation.Document_Quotation != null">
+                          &nbsp;<i class="fas fa-file-pdf"></i>
+                        </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/quotation',quotation.IdTra_Quotation]" class="btn btn-info" *ngIf="canEdits" >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class="btn btn-warning" (click)="createOrder(quotation)" *ngIf="canCreateOrder && quotation.SRestante_Quotation != 0" >
+                        <i class="fas fa-shopping-cart"></i>
+                      </button>
+                    </td>
+                    <!--
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteOrder(quotation)" *ngIf="canDelete" disabled>
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>-->
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> 
+    </div>
+</div>

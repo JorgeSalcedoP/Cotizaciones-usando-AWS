@@ -1,0 +1,72 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+  
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/quotations" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="quotation.IdTra_Quotation != 0" class="float-right">Editando la Cotización  <b>{{quotation.Serie_Quotation }}</b></h4>
+                <h4 *ngIf="quotation.IdTra_Quotation == 0" class="float-right">Creando la Cotización </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="updateQuotation()">
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Serie_Quotation').valid}">
+                        <label class="col-sm-2 control-label">Serie de Cotización</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Serie_Quotation" id="Serie_Quotation" [(ngModel)]="quotation.Serie_Quotation" class="form-control" autofocus >
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Document_Quotation').valid}">
+                        <label class="col-sm-2 control-label">Ubicación del PDF</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Document_Quotation" id="Document_Quotation" [(ngModel)]="quotation.Document_Quotation" class="form-control" autofocus readonly>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Estado</label>
+                          <div class="col-sm-10">
+                              <select formControlName="Status_Quotation" [(ngModel)]="quotation.Status_Quotation">
+                                  <option value="Abierto">Abierto</option>
+                                  <option value="Aprobada">Aprobada</option>
+                                  <option value="Pendiente">Pendiente</option>
+                                  <option value="Anulado">Anulado</option>
+                                  <option value="Rechazado">Rechazado</option>
+                              </select>
+                          </div>
+                      </div>
+                    <div *ngIf="quotation.Document_Quotation === null || quotation.Document_Quotation === '' ">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('File_Osce').valid}">
+                            <label class="col-sm-2 control-label">Subir archivo</label>
+                            <div class="col-sm-10">
+                                <input type="file" formControlName="File_Osce" id="File_Osce" class="form-control" autofocus (change)="selectFile($event)" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Validez_Quotation').valid}">
+                        <label class="col-sm-2 control-label">Validez de Cotización</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Validez_Quotation" id="Validez_Quotation" [(ngModel)]="quotation.Validez_Quotation" class="form-control" autofocus>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/quotations" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  

@@ -1,0 +1,46 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Items</h5>
+        <div class="ibox-tools">
+            <a routerLink="/item/nuevo" class="btn btn-primary btn-xs" *ngIf="canCreates" ><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Item</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Partnumber</th>
+                    <th scope="col">Unidad</th>
+                    <th scope="col">PUnitary</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ item.Description_Item }}</td>
+                    <td>{{ item.Brand_Item }}</td>
+                    <td>{{ item.Partnumber_Item  }}</td>
+                    <td>{{ item.Unit_Item }}</td>
+                    <td>{{ item.PUnitary_Item }}</td>
+                    <td>
+                      <a [routerLink]="['/item',item.IdMa_Item]" class="btn btn-info" *ngIf="canEdits" >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" (click)="deleteItem(item)" *ngIf="canDelete">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> 
+    </div>
+</div>

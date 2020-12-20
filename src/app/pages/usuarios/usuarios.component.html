@@ -1,0 +1,75 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de usuarios</h5>
+        <div class="ibox-tools">
+            <a routerLink="/usuario/nuevo" class="btn btn-primary btn-xs"><i class="fa fa-plus-square" aria-hidden="true"></i> Crear usuario</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row m-b-sm m-t-sm">
+
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input [(ngModel)]="searchText" type="text" placeholder="Buscar usuario..." class="input-sm form-control"> <span class="input-group-btn">
+                    <button type="button" class="btn btn-sm btn-primary"> Buscar</button> </span></div>
+            </div>
+        </div>
+
+        <div class="project-list animated fadeIn faster">
+
+            <table *ngIf="!cargando && usuarios.length>0" class="table table-hover">
+                <tbody>
+                    <tr>
+                        <td class="project-status">
+                            ESTADO
+                        </td>
+                        <td class="project-title">
+                            USUARIO
+                        </td>
+
+                        <td class="project-completion">
+                            NOMBRE
+
+                        </td>
+                        <td class="project-completion">
+                            APELLIDOS
+
+                        </td>
+                        <td class="project-people">
+                            AVATAR
+
+                        </td>
+                        <td class="project-actions">
+                            OPCIONES
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+            <div *ngIf="cargando" class="alert alert-info mt-3 text-center animated fadeIn faster" role="alert">
+                <h4 class="alert-heading">Cargando
+                    <p>
+                        <i class="fas fa-sync-alt fa-spin fa-2x"></i>
+
+                    </p>
+                </h4>
+                <p class="mb-0">
+                    Espere por favor...
+                </p>
+            </div>
+
+
+            <div *ngIf="!cargando && usuarios.length===0" class="alert alert-warning mt-3 text-center animated fadeIn faster" role="alert">
+                <h4 class="alert-heading">No existen registros
+                    <hr>
+                    <p>
+                        <i class="fas fa-exclamation fa-2x"></i>
+                    </p>
+                </h4>
+
+            </div>
+        </div>
+    </div>
+</div>

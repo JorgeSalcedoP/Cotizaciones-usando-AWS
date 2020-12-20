@@ -1,0 +1,179 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+  
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/osces" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="oc.IdMa_Osce != 0" class="float-right">Editando la Orden  <b>{{oc.Serie_Osce }}</b></h4>
+                <h4 *ngIf="oc.IdMa_Osce == 0" class="float-right">Creando la Orden </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateOrder() : createOrder()" id="formOC">
+                    
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Quotation_Serie').valid}">
+                        <label class="col-sm-2 control-label">Serie de Cotización</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Quotation_Serie" id="Quotation_Serie" [(ngModel)]="oc.Quotation_Serie" class="form-control" autofocus disabled>
+                            <div *ngIf="forma.get('Quotation_Serie').invalid && (forma.get('Quotation_Serie').dirty || forma.get('Quotation_Serie').touched)">
+                                <span *ngIf="forma.get('Quotation_Serie').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Serie_Osce').valid}">
+                        <label class="col-sm-2 control-label">Serie de Orden</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Serie_Osce" id="Serie_Osce" [(ngModel)]="oc.Serie_Osce" class="form-control" autofocus >
+                            <div *ngIf="forma.get('Serie_Osce').invalid && (forma.get('Serie_Osce').dirty || forma.get('Serie_Osce').touched)">
+                                <span *ngIf="forma.get('Serie_Osce').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Empresa </label>
+                        <div class="col-sm-10">
+                            <select formControlName="Company_Id" [(ngModel)]="oc.Company_Id"  class="form-control" >
+                                <option [value]="company.IdMa_Company" *ngFor="let company of companies">{{company.Business_Name_Company}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Service_Description').valid}">
+                        <label class="col-sm-2 control-label">Servicio</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Service_Description" id="Service_Description" [(ngModel)]="oc.Service_Description" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Service_Description').invalid && (forma.get('Service_Description').dirty || forma.get('Service_Description').touched)">
+                                <span *ngIf="forma.get('Service_Description').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Moneda</label>
+                        <div class="col-sm-10">
+                            <select formControlName="Moneda_Osce" [(ngModel)]="oc.Moneda_Osce" class="form-control" (change)="getDolar()" disabled>
+                                <option value="Soles">Soles</option>
+                                <option value="Dolares">Dolares</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group error" [ngClass]="{'has-error':forma.touched && !forma.get('PSubtotal_Osce').valid}" >
+                        <label class="col-sm-2 control-label">Sub Total</label>
+                        <div class="col-sm-10">
+                            <input type="number" formControlName="PSubtotal_Osce" id="PSubtotal_Osce" [(ngModel)]="oc.PSubtotal_Osce" class="form-control" autofocus>
+                            <span class="showerror" style="color: red;" hidden>
+                                El valor Ingresado supera al valor de la cotización.
+                            </span>
+                            <span class="showerror0" style="color: red;" hidden>
+                                El valor Ingresado es igual a 0.
+                            </span>
+                            <div *ngIf="forma.get('PSubtotal_Osce').invalid && (forma.get('PSubtotal_Osce').dirty || forma.get('PSubtotal_Osce').touched)">
+                                <span *ngIf="forma.get('PSubtotal_Osce').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hidden">
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group error" [ngClass]="{'has-error':forma.touched && !forma.get('Total_Osce').valid}">
+                            <label class="col-sm-2 control-label">Total Neto</label>
+                            <div class="col-sm-10">
+                                <input type="number" formControlName="Total_Osce" id="Total_Osce" [(ngModel)]="oc.Total_Osce" class="form-control" autofocus>
+                                <span class="showerror" style="color: red;" hidden>
+                                    El valor Ingresado supera al valor de la cotización.
+                                </span>
+                                <span class="showerror0" style="color: red;" hidden>
+                                    El valor Ingresado es igual o menor a 0.
+                                </span>
+                                <div *ngIf="forma.get('Total_Osce').invalid && (forma.get('Total_Osce').dirty || forma.get('Total_Osce').touched)">
+                                    <span *ngIf="forma.get('Total_Osce').errors.required" style="color: red;">
+                                        El campo es requerido
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group errormenor" [ngClass]="{'has-error':forma.touched && !forma.get('SRestante_Osce').valid}">
+                        <label class="col-sm-2 control-label">Saldo Restante</label>
+                        <div class="col-sm-10">
+                            <input type="number" formControlName="SRestante_Osce" id="SRestante_Osce" [(ngModel)]="oc.SRestante_Osce" class="form-control" autofocus disabled>
+                            <input type="hidden" formControlName="SRestante_Osce" id="SRestante_Osce_Fijo" [(ngModel)]="oc.SRestante_Osce" class="form-control" autofocus>
+                            <span class="showerrormenor0" style="color: red;" hidden>
+                                El valor Ingresado es menor a 0.
+                            </span>
+                            <div *ngIf="forma.get('SRestante_Osce').invalid && (forma.get('SRestante_Osce').dirty || forma.get('SRestante_Osce').touched)">
+                                <span *ngIf="forma.get('SRestante_Osce').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                      <div class="form-group">
+                          <label class="col-sm-2 control-label">Estado</label>
+                          <div class="col-sm-10">
+                              <select formControlName="Status_Osce" [(ngModel)]="oc.Status_Osce" class="form-control">
+                                  <option value="Proceso">Proceso</option>
+                                  <option value="Finalizado">Finalizado</option>
+                              </select>
+                          </div>
+                      </div>
+                    <div class="hr-line-dashed"></div>
+                    <div *ngIf="oc.Document_Osce === '' ">
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('File_Osce').valid}">
+                            <label class="col-sm-2 control-label">Subir PDF</label>
+                            <div class="col-sm-10">
+                                <input type="file" formControlName="File_Osce" id="File_Osce" class="form-control" autofocus (change)="selectFile($event)" >
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="oc.Files_Osce === '' ">
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('File_Documents').valid}" >
+                            <label class="col-sm-2 control-label">Subir Documentos</label>
+                            <div class="col-sm-10">
+                                <input type="file" formControlName="File_Documents" id="File_Documents" class="form-control" autofocus (change)="selectDocument($event)" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Commentary_Osce').valid}">
+                        <label class="col-sm-2 control-label">Observaciòn</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" formControlName="Commentary_Osce" id="Commentary_Osce" [(ngModel)]="oc.Commentary_Osce" class="form-control" autofocus rows="10"></textarea>
+                            <div *ngIf="forma.get('Commentary_Osce').invalid && (forma.get('Commentary_Osce').dirty || forma.get('Commentary_Osce').touched)">
+                                <span *ngIf="forma.get('Commentary_Osce').errors.required" style="color: red;">
+                                    El campo es requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/osces" class="btn btn-white" type="submit">Cancelar</button>
+                            <button  [disabled]="forma.invalid" class="btn btn-primary" type="submit" id="boton_obtenerTodos">Guardar</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+  

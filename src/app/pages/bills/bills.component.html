@@ -1,0 +1,60 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Facturas</h5>
+        <div class="ibox-tools">
+            <a routerLink="/bill/nuevo" class="btn btn-primary btn-xs" *ngIf="canCreates"><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Factura</a>
+            <div *ngIf="showTotal">
+              Tiene un total de <b>S/. {{ total }}</b> por Cobrar
+            </div>
+          </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Serie</th>
+                    <th scope="col">Serie de Cotización</th>
+                    <th scope="col">Serie de Ordén de Compra</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">PDF</th>
+                    <th colspan="1"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bill of bills | paginate: { itemsPerPage: 10, currentPage: p } ; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ bill.Serie_Bill }}</td>
+                    <td>{{ bill.Quotation_Serie  }}</td>
+                    <td>{{ bill.Osce_Serie }}</td>
+                    <td>{{ bill.Business_Name_Company }}</td>
+                    <td>{{ bill.Name_Client }} {{ bill.Lastname_Client }}</td>
+                    <td>{{ bill.Total_Bill }}</td>
+                    <td>{{ bill.Status_Bill }}</td>
+                    <td>
+                        <a href="{{ bill.Document_Bill }}" class="btn btn-default" target="_blank" *ngIf="bill.Document_Bill != null">
+                            &nbsp;<i class="fas fa-file-pdf"></i>
+                          </a>
+                    </td>
+                    <td>
+                      <a [routerLink]="['/bill',bill.IdMa_Bill]" class="btn btn-info" *ngIf="canEdits" >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <!--
+                    <td>  
+                      <button class="btn btn-danger" (click)="deleteBill(bill)" *ngIf="canDelete">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>-->
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> 
+    </div>
+</div>

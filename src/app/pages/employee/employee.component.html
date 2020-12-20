@@ -1,0 +1,118 @@
+<div class="row animated fadeIn faster">
+    <div class="col-lg-12">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title-right">
+                <button type="button" routerLink="/employees" class="btn btn-primary btn-xs">
+                    <i class="fa fa-arrow-left"></i>
+                    Regresar
+                </button>
+            </div>
+            <div class="ibox-content">
+                <h4 *ngIf="employee.IdMa_Employee != 0" class="float-right">Editando al empleado  <b>{{employee.Name_Employee }}</b></h4>
+                <h4 *ngIf="employee.IdMa_Employee == 0" class="float-right">Creando al empleado </h4>
+                <hr>
+                <br>
+                <form class="form-horizontal" [formGroup]="forma" novalidate="" (ngSubmit)="edit ? updateEmployee() : createEmployee()">
+
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Name_Employee').valid}">
+                        <label class="col-sm-2 control-label">Nombre</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Name_Employee" id="nameEmployee" [(ngModel)]="employee.Name_Employee" class="form-control texto" autofocus >
+                            <div *ngIf="forma.get('Name_Employee').invalid && (forma.get('Name_Employee').dirty || forma.get('Name_Employee').touched)">
+                                <span *ngIf="forma.get('Name_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Name_Employee').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Lastname_Employee').valid}">
+                        <label class="col-sm-2 control-label">Apellido</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Lastname_Employee" id="Lastname" [(ngModel)]="employee.Lastname_Employee" class="form-control texto" autofocus>
+                            <div *ngIf="forma.get('Lastname_Employee').invalid && (forma.get('Lastname_Employee').dirty || forma.get('Lastname_Employee').touched)">
+                                <span *ngIf="forma.get('Lastname_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Lastname_Employee').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo texto
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Email_Employee').valid}">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Email_Employee" id="Email" [(ngModel)]="employee.Email_Employee" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Email_Employee').invalid && (forma.get('Email_Employee').dirty || forma.get('Email_Employee').touched)">
+                                <span *ngIf="forma.get('Email_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Email_Employee').errors.pattern" style="color: red;">
+                                   Este campo debe tener un formato de correo
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                        <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Mobile_Employee').valid}">
+                        <label class="col-sm-2 control-label">Celular</label>
+                        <div class="col-sm-10">
+                            <input type="text" minlength="9" maxlength="9" formControlName="Mobile_Employee" id="Mobile_Employee" [(ngModel)]="employee.Mobile_Employee" class="form-control numero" autofocus>
+                            <div *ngIf="forma.get('Mobile_Employee').invalid && (forma.get('Mobile_Employee').dirty || forma.get('Mobile_Employee').touched)">
+                                <span *ngIf="forma.get('Mobile_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                                <span *ngIf="forma.get('Mobile_Employee').errors.pattern" style="color: red;">
+                                   Este campo debe ser solo números
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Birthdate_Employee').valid}">
+                        <label class="col-sm-2 control-label">Fecha de Nacimiento</label>
+                        <div class="col-sm-10">
+                            <input type="date" formControlName="Birthdate_Employee" id="Birthdate" [(ngModel)]="employee.Birthdate_Employee" class="form-control" autofocus>
+                            <div *ngIf="forma.get('Birthdate_Employee').invalid && (forma.get('Birthdate_Employee').dirty || forma.get('Birthdate_Employee').touched)">
+                                <span *ngIf="forma.get('Birthdate_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group" [ngClass]="{'has-error':forma.touched && !forma.get('Area_Employee').valid}">
+                        <label class="col-sm-2 control-label">Área</label>
+                        <div class="col-sm-10">
+                            <input type="text" formControlName="Area_Employee" id="Area" [(ngModel)]="employee.Area_Employee" class="form-control texto" autofocus >
+                            <div *ngIf="forma.get('Area_Employee').invalid && (forma.get('Area_Employee').dirty || forma.get('Area_Employee').touched)">
+                                <span *ngIf="forma.get('Area_Employee').errors.required" style="color: red;">
+                                    El campo es Requerido
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button routerLink="/employees" class="btn btn-white" type="submit">Cancelar</button>
+                            <button [disabled]="forma.invalid" class="btn btn-primary" type="submit">Guardar</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

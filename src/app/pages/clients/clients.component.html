@@ -1,0 +1,46 @@
+<div class="ibox">
+    <div class="ibox-title">
+        <h5>Administración de Clientes</h5>
+        <div class="ibox-tools">
+            <a routerLink="/client/nuevo" class="btn btn-primary btn-xs" *ngIf="canCreates"><i class="fa fa-plus-square" aria-hidden="true"></i> Crear Cliente</a>
+        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead style="text-align: center;">
+                  <tr>
+                    <th>#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Área</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Correo</th>
+                    <th colspan="2"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let client of clients | paginate: { itemsPerPage: 10, currentPage: p }; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ client.Name_Client }} {{ client.Lastname_Client }}</td>
+                    <td>{{ client.Area_Client }}</td>
+                    <td>{{ client.Phone_Client  }}</td>
+                    <td>{{ client.Mobile_Client }}</td>
+                    <td>{{ client.Email_Client }}</td>
+                    <td>
+                      <a [routerLink]="['/client',client.IdMa_Client]" class="btn btn-info" *ngIf="canEdits" >
+                        <i class="fas fa-edit"></i>
+                      </a>
+                    </td>
+                    <td>  
+                      <button class="btn btn-danger" (click)="deleteClient(client)" *ngIf="canDelete">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div> 
+    </div>
+</div>
